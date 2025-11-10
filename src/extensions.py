@@ -7,7 +7,7 @@ from flask_admin import Admin
 from flask_mail import Mail
 from flask_migrate import Migrate
 from flask_caching import Cache
-from celery import Celery
+# from celery import Celery
 import os
 
 # --- Extensions Initialization ---
@@ -22,4 +22,4 @@ cache = Cache()
 
 # --- Celery Config ---
 # The broker URL is taken from environment variables
-celery = Celery(__name__, broker=os.environ.get('CELERY_BROKER_URL', 'redis://localhost:6379/0'))
+# celery = Celery(__name__, broker=os.environ.get('CELERY_BROKER_URL', 'redis://localhost:6379/0'))
