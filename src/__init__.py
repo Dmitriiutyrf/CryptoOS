@@ -11,7 +11,8 @@ def create_app():
     # --- Configuration -- -
     app.config.from_mapping(
         SECRET_KEY = os.environ.get('SECRET_KEY', 'a-very-secret-key'),
-        SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', 'sqlite:///site.db'),
+        # Use /tmp for Vercel's writable directory, as the main filesystem is read-only
+        SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', 'sqlite:////tmp/site.db'),
         SQLALCHEMY_TRACK_MODIFICATIONS = False,
         WTF_CSRF_SECRET_KEY = os.environ.get('WTF_CSRF_SECRET_KEY', 'another-secret-key')
     )
@@ -33,8 +34,9 @@ def create_app():
         import src.models
         import src.admin_views
 
-        # Create database tables if they don't exist
-        db.create_all()
+        # This is problematic in a serverless environment. It's better to use 'flask db upgrade'.
+        # In Vercel, this would fail due to a read-only filesystem outside of /tmp.
+        # db.create_all()
 
 
     return app
