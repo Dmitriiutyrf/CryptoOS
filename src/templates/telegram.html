@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Telegram Channel Monitor</h1>
+
+    <!-- Search Form -->
+    <form method="POST" class="mb-4">
+        <div class="row">
+            <div class="col-md-4">
+                <input type="text" name="channel" class="form-control" placeholder="Telegram Channel (e.g., @somechannel)" value="{{ channel }}">
+            </div>
+            <div class="col-md-3">
+                <input type="text" name="keywords" class="form-control" placeholder="Keywords (optional)" value="{{ keywords }}">
+            </div>
+            <div class="col-md-2">
+                <input type="number" name="limit" class="form-control" value="{{ limit or 10 }}" min="1" max="100">
+            </div>
+            <div class="col-md-3">
+                <button type="submit" name="fetch" class="btn btn-primary">Fetch Manually</button>
+                <button type="submit" name="save_favorite" class="btn btn-success">Save as Favorite</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Favorites List -->
+    <h2 class="my-4">Your Favorites</h2>
+    <div class="list-group">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Channel</th>
+                    <th>Keywords</th>
+                    <th>Token</th>
+                    <th>Hype Score</th>
+                    <th>Last Analysis</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for fav in favorites %}
+                <tr>
+                    <td>{{ fav.channel }}</td>
+                    <td>{{ fav.keywords or 'N/A' }}</td>
+                    <td>
+                        {% if fav.ticker %}
+                            {{ fav.token_name }} ({{ fav.ticker }})
+                        {% else %}
+                            <span class="text-muted">Not Analyzed</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if fav.hype_score is not none %}
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: {{ fav.hype_score }}%;" aria-valuenow="{{ fav.hype_score }}" aria-valuemin="0" aria-valuemax="100">
+                                    {{ fav.hype_score }}
+                                </div>
+                            </div>
+                        {% else %}
+                            <span class="text-muted">-</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if fav.last_analysis_timestamp %}
+                            {{ fav.last_analysis_timestamp.strftime('%Y-%m-%d %H:%M') }}
+                        {% else %}
+                            <span class="text-muted">Never</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ url_for('main.load_favorite', fav_id=fav.id) }}" class="btn btn-sm btn-info">Load</a>
+                        <form method="POST" action="{{ url_for('main.delete_favorite', fav_id=fav.id) }}" style="display:inline;">
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Fetched Messages -->
+    {% if fetched_messages %}
+    <h2 class="my-4">Fetched Messages</h2>
+    <div class="list-group">
+        {% for message in fetched_messages %}
+        <div class="list-group-item">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+</div>
+{% endblock content %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Favorite{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Edit Favorite</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <form action="{{ url_for('profile.edit_favorite', favorite_id=favorite.id) }}" method="post">
+                <div class="mb-3">
+                    <label for="channel" class="form-label">Telegram Channel URL or ID</label>
+                    <input type="text" class="form-control" id="channel" name="channel" value="{{ favorite.channel }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="keywords" class="form-label">Keywords (comma-separated)</label>
+                    <input type="text" class="form-control" id="keywords" name="keywords" value="{{ favorite.keywords|join(', ') }}" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a href="{{ url_for('profile.profile') }}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

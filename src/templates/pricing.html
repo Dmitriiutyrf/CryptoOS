@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="text-center">
+        <h1 class="mb-4">Pricing</h1>
+        <p class="lead">Choose the plan that works for you.</p>
+    </div>
+
+    <div class="row">
+        <!-- Free Plan -->
+        <div class="col-md-6">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">Free</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li>5 Favorite Channels</li>
+                        <li>Manual Message Fetching</li>
+                        <li>Email Notifications (Coming Soon)</li>
+                        <li>Basic Support</li>
+                    </ul>
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Current Plan</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Premium Plan -->
+        <div class="col-md-6">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">Premium</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">$10 <small class="text-muted">/ mo</small></h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li>Unlimited Favorite Channels</li>
+                        <li>Automatic Background Message Checking</li>
+                        <li>Instant Email Notifications</li>
+                        <li>Priority Support</li>
+                    </ul>
+                    <a href="{{ url_for('billing.create_checkout_session') }}" class="btn btn-lg btn-block btn-primary">Subscribe Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

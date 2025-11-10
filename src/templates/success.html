@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h1>Thanks for your order!</h1>
+    <p>
+        Welcome to the premium plan! Your subscription is now active.
+        You can now enjoy all the premium features.
+    </p>
+    <p><a href="{{ url_for('main.telegram_page') }}">Go to the Telegram Tool</a></p>
+</div>
+{% endblock content %}
