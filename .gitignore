@@ -1,5 +1,42 @@
-.venv
-.env
+# .gitignore
+# By default, we ignore everything to override global gitignore rules
+*
+
+# --- UN-IGNORE what we NEED ---
+# Keep this .gitignore file
+!/.gitignore
+
+# Keep the main application file
+!/app.py
+
+# Keep all files in the source directory
+!/src/
+!/src/*
+!/src/**/*
+
+# Keep other critical project files
+!/config.py
+!/devserver.sh
+!/LICENSE
+!/README.md
+!/requirements.txt
+!/Pipfile
+!/Pipfile.lock
+
+# --- IGNORE what we DON'T NEED ---
+# Python cache files
 __pycache__/
-migrations/
 *.pyc
+
+# Environment files
+.env
+.venv/
+
+# IDE / Editor specific files
+.vscode/
+.idea/
+
+# Build and distribution artifacts
+dist/
+build/
+*.egg-info/
