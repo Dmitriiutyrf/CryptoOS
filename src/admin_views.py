@@ -4,7 +4,6 @@ from flask import redirect, url_for
 from flask_admin.contrib.sqla import ModelView
 from flask_login import current_user
 
-from src.extensions import db, admin
 from src.models import User, Favorite
 
 
@@ -30,6 +29,7 @@ class FavoriteAdminView(AuthenticatedModelView):
     form_columns = ('author', 'channel', 'keywords')
 
 
-# Register views
-admin.add_view(UserAdminView(User, db.session))
-admin.add_view(FavoriteAdminView(Favorite, db.session))
+def register_admin_views(admin_instance, db_session):
+    """Registers all the admin views with the provided Admin instance."""
+    admin_instance.add_view(UserAdminView(User, db_session))
+    admin_instance.add_view(FavoriteAdminView(Favorite, db_session))

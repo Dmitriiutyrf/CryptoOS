@@ -4,12 +4,12 @@ import os
 from flask import Flask
 from src.extensions import db, bcrypt, login_manager, admin, migrate
 from src.models import User
+from src.admin_views import register_admin_views
 
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
 
     # --- Configuration ---
-    # Use /tmp for Vercel's writable directory
     db_path = '/tmp/site.db'
     app.config.from_mapping(
         SECRET_KEY=os.environ.get('SECRET_KEY', 'a-very-secret-key'),
@@ -22,7 +22,7 @@ def create_app():
     db.init_app(app)
     bcrypt.init_app(app)
     login_manager.init_app(app)
-    admin.init_app(app)
+    admin.init_app(app) # Initialize Admin first
     migrate.init_app(app, db)
 
     # --- User Loader ---
@@ -31,14 +31,13 @@ def create_app():
         return User.query.get(int(user_id))
 
     with app.app_context():
-        # --- Model & Admin View Registration ---
-        import src.models
-        import src.admin_views
-
-        # In a serverless environment like Vercel, we can't run 'flask db upgrade'.
-        # Instead, we check if the database file exists in the writable /tmp directory
-        # and create all tables if it doesn't. This is a "cold start" initialization.
+        # --- Create DB tables if they don't exist ---
         if not os.path.exists(db_path):
             db.create_all()
+
+        # --- Register Admin Views ---
+        # This is done *after* db and admin are initialized.
+        import src.models
+        register_admin_views(admin, db.session)
 
     return app
