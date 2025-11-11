@@ -9,5 +9,6 @@ set -x
 # Install Python dependencies
 pip install -r requirements.txt
 
-# Create an empty public directory to satisfy the static build process
+# Create a public directory and a placeholder file to satisfy the static builder
 mkdir public
+touch public/index.html
