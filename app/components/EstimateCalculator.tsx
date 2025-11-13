@@ -200,7 +200,7 @@ const EstimateCalculator: React.FC = () => {
                 {formData.services.includes('fire') && (
                      <div className="form-group stacked">
                         <h4>Пожарная сигнализация</h4>
-                        <label>Примерное количество датчиков: {formData.fireAlarmDetails.sensors}</label>
+                        <label>Количество пожарных датчиков (шт): {formData.fireAlarmDetails.sensors}</label>
                         <input type="range" min="0" max="200" value={formData.fireAlarmDetails.sensors} onChange={(e) => handleDetailChange('fireAlarmDetails', 'sensors', parseInt(e.target.value))} className="slider" />
                     </div>
                 )}
