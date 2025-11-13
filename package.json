@@ -4,13 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npx drizzle-kit push:pg && next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "next lint"
   },
   "dependencies": {
     "@vercel/postgres": "^0.10.0",
-    "drizzle-kit": "^0.31.6",
     "drizzle-orm": "^0.44.7",
     "next": "16.0.1",
     "react": "19.2.0",
@@ -20,6 +19,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "drizzle-kit": "^0.31.6",
     "eslint": "^9",
     "eslint-config-next": "16.0.1",
     "typescript": "^5"
