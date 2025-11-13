@@ -58,7 +58,7 @@ const EstimateCalculator: React.FC = () => {
     fireAlarmDetails: { sensors: 5 },
   });
   const [calculation, setCalculation] = useState<{ services: ServiceSelection[], totalCost: number } | null>(null);
-  const [submissionStatus, setSubmissionStatus] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+  const [submissionStatus, setSubmissionStatus] = useState<{ message: string; type: 'loading' | 'success' | 'error' } | null>(null);
 
   // --- Handlers ---
   const handleNext = () => setStep(prev => prev + 1);
@@ -123,7 +123,7 @@ const EstimateCalculator: React.FC = () => {
 
   const handleSaveEstimate = async () => {
     if (!calculation) return;
-    setSubmissionStatus({ message: 'Сохранение...', type: 'success' });
+    setSubmissionStatus({ message: 'Сохранение...', type: 'loading' });
     
     const result = await saveEstimate({
       projectName: formData.projectName,
@@ -259,7 +259,15 @@ const EstimateCalculator: React.FC = () => {
           {step > 1 && <button onClick={handleBack} className="cta-button secondary">Назад</button>}
           {step < 4 && <button onClick={handleNext} className="cta-button" disabled={formData.services.length === 0}>Далее</button>}
           {step === 4 && <button onClick={handleCalculate} className="cta-button" disabled={!formData.projectName || !formData.clientName}>Рассчитать</button>}
-          {step === 5 && !submissionStatus?.success && <button onClick={handleSaveEstimate} className="cta-button" disabled={!!submissionStatus}>Сохранить смету</button>}
+          {step === 5 && submissionStatus?.type !== 'success' && (
+            <button 
+              onClick={handleSaveEstimate} 
+              className="cta-button" 
+              disabled={submissionStatus?.type === 'loading'}
+            >
+              {submissionStatus?.type === 'loading' ? 'Сохранение...' : 'Сохранить смету'}
+            </button>
+          )}
         </div>
       </div>
     </section>
