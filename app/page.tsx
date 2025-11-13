@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -8,6 +7,7 @@ import Contact from './components/Contact';
 import EstimateCalculator from './components/EstimateCalculator';
 import Footer from './components/Footer';
 
+// Force a new build on Vercel
 const HomePage: React.FC = () => {
   return (
     <div>
