@@ -5,6 +5,7 @@ import Hero from './components/Hero';
 import Features from './components/Features';
 import About from './components/About';
 import Contact from './components/Contact';
+import EstimateCalculator from './components/EstimateCalculator';
 import Footer from './components/Footer';
 
 const HomePage: React.FC = () => {
@@ -15,6 +16,7 @@ const HomePage: React.FC = () => {
         <Hero />
         <Features />
         <About />
+        <EstimateCalculator />
         <Contact />
       </main>
       <Footer />

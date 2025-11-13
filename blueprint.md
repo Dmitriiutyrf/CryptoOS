@@ -16,18 +16,18 @@ This project is a modern and professional website for a company specializing in 
     *   **Noise Texture:** A subtle noise texture is applied to the main background to add a premium, tactile feel.
     *   **Gradients:** Buttons and other key elements feature vibrant linear gradients.
     *   **Glow Effects:** Soft, deep shadows and colored glows are used to create a sense of depth and make interactive elements pop.
-    *   **Glassmorphism:** The header uses a frosted glass effect to appear modern and float above the content.
-*   **Components:**
-    *   **Header:** A sticky, semi-transparent header with a frosted glass effect.
-    *   **Hero Section:** A prominent section with gradient text and a glowing, pill-shaped call-to-action button.
-    *   **Features Section:** Cards with a lifted appearance, rounded corners, and a subtle glow.
-    *   **About Section:** Styled to match the new, modern aesthetic.
-    *   **Contact Section:** A redesigned contact form with styled inputs and a gradient button.
-    *   **Footer:** A modernized footer that is consistent with the overall design.
+    *   **Glassmorphism:** The header and cards use a frosted glass effect to appear modern and float above the content.
+*   **Components:** Header, Hero, Features, About, Contact, Footer.
+
+### Current Addition: Estimate Calculator
+
+*   **Feature:** An interactive, multi-step form to provide users with a preliminary cost estimate for low-current system installations.
+*   **Logic:** The form will gather user requirements and use a Server Action to query the Gemini API for a cost breakdown.
+*   **Design:** The calculator will be styled to match the site's futuristic aesthetic, using glassmorphism, gradient accents, and glowing interactive elements.
 
 ## Current Plan
 
-1.  **Update `blueprint.md`:** Document the new design system.
-2.  **Import Font:** Add the 'Poppins' font from Google Fonts in `app/layout.tsx`.
-3.  **Create Background Texture:** Add an SVG file for the noise texture.
-4.  **Overhaul CSS:** Rewrite `app/globals.css` to implement the new design across all components.
+1.  **Create `EstimateCalculator.tsx` component:** Develop the UI for the multi-step form.
+2.  **Integrate into `page.tsx`:** Add the new calculator section to the main page.
+3.  **Style the component:** Add styles to `app/globals.css` for the calculator's appearance and responsiveness.
+4.  **Implement Server Action:** Create the backend logic in `app/actions.ts` to process form data and communicate with the Gemini API (to be done after UI is complete).
